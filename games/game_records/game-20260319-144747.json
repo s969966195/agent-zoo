@@ -1,0 +1,62 @@
+{
+  "game_id": "game-20260319-144747",
+  "players": {
+    "xueqiu": {
+      "agent_id": "xueqiu",
+      "name": "雪球",
+      "role": "civilian",
+      "word": "苹果",
+      "description": "这是一种常见的果实，营养丰富，用途广泛，常被加工成各种食品。",
+      "votes": 0,
+      "voted_for": ""
+    },
+    "liuliu": {
+      "agent_id": "liuliu",
+      "name": "六六",
+      "role": "spy",
+      "word": "橘子",
+      "description": "哎呀，你们知道吗？这种水果啊，酸甜可口，一吃就能让人心情大好，而且它的形状圆滚滚的，就像小太阳一样，特别可爱呢！🍊🌞",
+      "votes": 3,
+      "voted_for": ""
+    },
+    "xiaohuang": {
+      "agent_id": "xiaohuang",
+      "name": "小黄",
+      "role": "civilian",
+      "word": "苹果",
+      "description": "这是一种日常中不可或缺的水果，口感清脆多汁，深受大家喜爱。",
+      "votes": 0,
+      "voted_for": ""
+    },
+    "openai": {
+      "agent_id": "openai",
+      "name": "OpenAI Agent",
+      "role": "civilian",
+      "word": "苹果",
+      "description": "这是一个广泛种植的水果，其色泽鲜艳，口感甜美，是很多人喜爱的日常食品之一。",
+      "votes": 1,
+      "voted_for": ""
+    }
+  },
+  "phases": [
+    {
+      "phase": "setup",
+      "civilian_word": "苹果",
+      "spy_word": "橘子",
+      "spy_id": "liuliu"
+    },
+    {
+      "phase": "reveal",
+      "eliminated": "六六",
+      "role": "spy",
+      "votes": {
+        "雪球": 0,
+        "六六": 3,
+        "小黄": 0,
+        "OpenAI Agent": 1
+      }
+    }
+  ],
+  "winner": "平民",
+  "created_at": "2026-03-19T14:47:47.876323"
+}

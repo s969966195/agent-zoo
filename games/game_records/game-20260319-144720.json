@@ -1,0 +1,62 @@
+{
+  "game_id": "game-20260319-144720",
+  "players": {
+    "xueqiu": {
+      "agent_id": "xueqiu",
+      "name": "雪球",
+      "role": "civilian",
+      "word": "地铁",
+      "description": "我每天通勤的伙伴，快速连接城市各个角落的脉络。",
+      "votes": 2,
+      "voted_for": ""
+    },
+    "liuliu": {
+      "agent_id": "liuliu",
+      "name": "六六",
+      "role": "civilian",
+      "word": "地铁",
+      "description": "哎呀，你们知道吗？我最近发现了一个超级便捷的出行方式，就像一条地下巨龙，穿梭在城市的大街小巷，带你去任何你想去的地方，真是快活极了！😄🚇",
+      "votes": 0,
+      "voted_for": ""
+    },
+    "xiaohuang": {
+      "agent_id": "xiaohuang",
+      "name": "小黄",
+      "role": "civilian",
+      "word": "地铁",
+      "description": "朋友们，你们有没有注意到，在我们忙碌的城市生活中，有一种交通工具就像一条隐形的丝带，无声地编织着我们的日常出行，既安静又高效，陪伴着我们穿梭在钢筋水泥的森林中。🚇🌆",
+      "votes": 2,
+      "voted_for": ""
+    },
+    "openai": {
+      "agent_id": "openai",
+      "name": "OpenAI Agent",
+      "role": "spy",
+      "word": "公交",
+      "description": "这是一种日常出行必备的交通工具，以其便捷性和普及性，成为城市中不可或缺的流动脉络，连接着每个人的生活轨迹。",
+      "votes": 0,
+      "voted_for": ""
+    }
+  },
+  "phases": [
+    {
+      "phase": "setup",
+      "civilian_word": "地铁",
+      "spy_word": "公交",
+      "spy_id": "openai"
+    },
+    {
+      "phase": "reveal",
+      "eliminated": "雪球",
+      "role": "civilian",
+      "votes": {
+        "雪球": 2,
+        "六六": 0,
+        "小黄": 2,
+        "OpenAI Agent": 0
+      }
+    }
+  ],
+  "winner": "卧底",
+  "created_at": "2026-03-19T14:47:20.006323"
+}

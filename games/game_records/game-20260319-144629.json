@@ -1,0 +1,62 @@
+{
+  "game_id": "game-20260319-144629",
+  "players": {
+    "xueqiu": {
+      "agent_id": "xueqiu",
+      "name": "雪球",
+      "role": "civilian",
+      "word": "篮球",
+      "description": "这是一个常用于户外或室内运动，通过球员间的团队协作，利用球体进行投篮得分的活动。",
+      "votes": 0,
+      "voted_for": ""
+    },
+    "liuliu": {
+      "agent_id": "liuliu",
+      "name": "六六",
+      "role": "civilian",
+      "word": "篮球",
+      "description": "哎哟，这可是一个让很多人热血沸腾的玩意儿，一提到它，球场上的小伙伴们就嗨翻天啦！🏀🌟",
+      "votes": 2,
+      "voted_for": ""
+    },
+    "xiaohuang": {
+      "agent_id": "xiaohuang",
+      "name": "小黄",
+      "role": "spy",
+      "word": "足球",
+      "description": "这个词语啊，它可是承载着无数激情与梦想，每当球场上的脚步声响起，那份热血与活力就仿佛被点燃了。",
+      "votes": 2,
+      "voted_for": ""
+    },
+    "openai": {
+      "agent_id": "openai",
+      "name": "OpenAI Agent",
+      "role": "civilian",
+      "word": "篮球",
+      "description": "这是一个广泛流行的运动器材，通常用于在篮球场上的团队竞技运动。",
+      "votes": 0,
+      "voted_for": ""
+    }
+  },
+  "phases": [
+    {
+      "phase": "setup",
+      "civilian_word": "篮球",
+      "spy_word": "足球",
+      "spy_id": "xiaohuang"
+    },
+    {
+      "phase": "reveal",
+      "eliminated": "六六",
+      "role": "civilian",
+      "votes": {
+        "雪球": 0,
+        "六六": 2,
+        "小黄": 2,
+        "OpenAI Agent": 0
+      }
+    }
+  ],
+  "winner": "卧底",
+  "created_at": "2026-03-19T14:46:29.678443"
+}
