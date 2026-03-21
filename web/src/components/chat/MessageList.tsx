@@ -29,21 +29,26 @@ export function MessageList({ messages, isTyping, typingAnimals }: MessageListPr
       className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
     >
       <AnimatePresence mode="popLayout">
-        {messages.map((message, index) => (
-          <motion.div
-            key={message.id}
-            layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.3, delay: index * 0.05 }}
-            className="mb-4"
-          >
-            <MessageBubble 
-              message={message} 
-            />
-          </motion.div>
-        ))}
+        {messages.map((message, index) => {
+          if (message.private) {
+            const isRecipient = message.sender.animalId ? message.mentions?.includes(message.sender.animalId) : false;
+            const isSender = message.sender.id === "user";
+            if (!isSender && !isRecipient) return null;
+          }
+          return (
+            <motion.div
+              key={message.id}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
+              className="mb-4"
+            >
+              <MessageBubble message={message} />
+            </motion.div>
+          );
+        })}
       </AnimatePresence>
 
       {/* Typing indicator */}

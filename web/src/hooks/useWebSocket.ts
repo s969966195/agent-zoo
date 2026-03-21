@@ -11,7 +11,7 @@ interface UseWebSocketReturn {
   isConnected: boolean;
   isConnecting: boolean;
   error: string | null;
-  sendMessage: (content: string, animalIds: AnimalType[], threadId?: string) => void;
+  sendMessage: (content: string, animalIds: AnimalType[], threadId?: string, privateMessage?: boolean) => void;
   connect: () => void;
   disconnect: () => void;
 }
@@ -66,6 +66,7 @@ export function useWebSocket(): UseWebSocketReturn {
             timestamp: new Date(data.timestamp || Date.now()),
             threadId: data.thread_id || activeConversation.id,
             mentions: data.mentions as AnimalType[] || [],
+            private: data.private || false,
           };
           addMessage(activeConversation.id, message);
         }
@@ -149,7 +150,7 @@ export function useWebSocket(): UseWebSocketReturn {
     }
   }, [handleWebSocketMessage]);
 
-  const sendMessage = useCallback((content: string, animalIds: AnimalType[], threadId?: string) => {
+  const sendMessage = useCallback((content: string, animalIds: AnimalType[], threadId?: string, privateMessage?: boolean) => {
     if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
       addToast({
         type: "error",
@@ -164,6 +165,7 @@ export function useWebSocket(): UseWebSocketReturn {
       animal_id: "user",
       thread_id: threadId,
       mentions: animalIds,
+      ...(privateMessage && { private: true }),
     };
 
     wsRef.current.send(JSON.stringify(message));

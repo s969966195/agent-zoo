@@ -73,6 +73,7 @@ class AgentDispatcher:
                 animal_id=animal_id,
                 content=content,
                 thread_id=thread_id,
+                mentions=mentions,
                 exclude_connection_id=exclude_connection_id,
             )
             print(f"[Dispatcher] Result from {animal_id}: success={result.success}, error={result.error}")
@@ -108,6 +109,7 @@ class AgentDispatcher:
         animal_id: str,
         content: str,
         thread_id: str,
+        mentions: Optional[List[str]],
         exclude_connection_id: Optional[str],
     ) -> DispatchResult:
         """Dispatch to a single animal and stream response."""
@@ -135,6 +137,7 @@ class AgentDispatcher:
                     content=message.content,
                     message_type=message.message_type,
                     thread_id=thread_id,
+                    mentions=mentions,
                     exclude_connection_id=exclude_connection_id,
                 )
 
@@ -171,12 +174,12 @@ class AgentDispatcher:
         content: str,
         message_type: str,
         thread_id: str,
+        mentions: Optional[List[str]],
         exclude_connection_id: Optional[str],
     ) -> None:
-        """Broadcast agent message via WebSocket."""
         if not content:
             return
-            
+
         message = {
             "type": "message",
             "animal_id": animal_id,
@@ -184,14 +187,22 @@ class AgentDispatcher:
             "message_type": message_type,
             "thread_id": thread_id,
             "timestamp": datetime.utcnow().isoformat(),
+            "private": mentions is not None and len(mentions) == 1,
         }
-        
-        # Broadcast to all active connections (users need to see animal responses)
-        sent = await self.ws_manager.broadcast_to_all(
-            message=message,
-            exclude_connection_id=None,  # Don't exclude anyone
-        )
-        print(f"[Dispatcher] broadcast_to_all sent={sent}")
+
+        if mentions and len(mentions) == 1:
+            sent = await self.ws_manager.broadcast_to_agents(
+                agent_ids=mentions,
+                message=message,
+                exclude_connection_id=None,
+            )
+            print(f"[Dispatcher] broadcast_to_agents({mentions}) sent={sent}")
+        else:
+            sent = await self.ws_manager.broadcast_to_all(
+                message=message,
+                exclude_connection_id=None,
+            )
+            print(f"[Dispatcher] broadcast_to_all sent={sent}")
     
     async def _broadcast_done(
         self,

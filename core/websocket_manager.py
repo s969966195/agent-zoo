@@ -80,6 +80,27 @@ class WebSocketManager:
                         await self.disconnect(conn_id)
         return sent
 
+    async def broadcast_to_agents(
+        self,
+        agent_ids: List[str],
+        message: dict,
+        exclude_connection_id: Optional[str] = None,
+    ) -> int:
+        sent = 0
+        for animal_id in agent_ids:
+            if animal_id in self.animal_connections:
+                connection_ids = self.animal_connections[animal_id].copy()
+                for conn_id in connection_ids:
+                    if conn_id == exclude_connection_id:
+                        continue
+                    if conn_id in self.active_connections:
+                        try:
+                            await self.active_connections[conn_id].ws.send_json(message)
+                            sent += 1
+                        except Exception:
+                            await self.disconnect(conn_id)
+        return sent
+
     async def broadcast_to_session(
         self,
         session_id: str,

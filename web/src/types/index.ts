@@ -63,6 +63,7 @@ export interface Message {
   timestamp: Date;
   threadId: string;
   mentions?: AnimalType[];
+  private?: boolean;
   metadata?: Record<string, unknown>;
 }
 
@@ -89,6 +90,7 @@ export interface WebSocketMessage {
   thread_id?: string;
   timestamp?: string;
   mentions?: string[];
+  private?: boolean;
   metadata?: Record<string, unknown>;
 }
 

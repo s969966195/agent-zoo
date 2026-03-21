@@ -171,9 +171,12 @@ class GenericAgentService(AnimalService):
         self.configure(prompt=prompt, thread_id=thread_id)
         cmd, cmd_args = self.get_cli_command()
 
-        # For claude, inject prompt into args
         if self._tool == AgentTool.CLAUDE:
             cmd_args = ["-p", prompt] + cmd_args
+            if "--output-format" in " ".join(cmd_args) and "--verbose" not in " ".join(cmd_args):
+                cmd_args.append("--verbose")
+        elif self._tool in (AgentTool.OPENCODE, AgentTool.CRUSH):
+            cmd_args = cmd_args + [prompt]
 
         if self.cli_spawner is None:
             self.cli_spawner = CLISpawner(timeout=float(self._timeout))
