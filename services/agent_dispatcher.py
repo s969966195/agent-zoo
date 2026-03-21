@@ -84,25 +84,15 @@ class AgentDispatcher:
     def _resolve_targets(
         self,
         content: str,
-        mentions: Optional[List[str]]
+        mentions: Optional[List[str]],
+        thread_id: Optional[str] = None,
     ) -> List[str]:
-        """
-        Resolve target animals from mentions or random selection.
-        
-        Decision: Random agent when no @mentions.
-        """
-        # Try parsing @mentions from content
         parsed_mentions = parse_a2a_mentions(content, current_animal="user")
-        
         if parsed_mentions:
             return parsed_mentions
-        
-        # Fall back to provided mentions
         if mentions:
             return mentions
-        
-        # Random selection (one agent)
-        return [random.choice(self._available_animals)]
+        return self._available_animals.copy()
     
     async def _dispatch_to_animal(
         self,
